@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Task } from "../../models/task.class";
 import { useEffect } from "react";
-import "../../styles/task.scss";
+import "../../styles/taskComponent.scss";
 import { LEVELS } from "../../models/levels.enum";
 
 const TaskComponent = ({ task, complete, remove }) => {

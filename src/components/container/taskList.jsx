@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { LEVELS } from "../../models/levels.enum";
 import { Task } from "../../models/task.class";
-import TaskForm from "../pure/forms/TaskForm";
-import TaskComponent from "../pure/TaskComponent";
+import TaskForm from "../pure/forms/taskForm";
+import TaskComponent from "../pure/taskComponent";
 
 const TaskList = () => {
   const defaultTask1 = new Task(
