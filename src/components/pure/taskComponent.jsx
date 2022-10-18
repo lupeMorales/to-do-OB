@@ -65,7 +65,11 @@ const TaskComponent = ({ task, complete, remove }) => {
   }
 
   return (
-    <tr className="fw-normal">
+    <tr
+      className={`fw-normal ${
+        task.completed ? "task-completed" : "task-pending"
+      } `}
+    >
       <th>
         <spam className="ms-2">{task.name}</spam>
       </th>

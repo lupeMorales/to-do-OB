@@ -33,7 +33,6 @@ const TaskList = () => {
   //control del ciclo de vida del componente
 
   useEffect(() => {
-    console.log("task has been modified");
     setLoading(false);
     return () => {
       //cuando desaparezca el componente
@@ -42,7 +41,6 @@ const TaskList = () => {
   }, [tasks]);
 
   function completeTask(task) {
-    console.log("complete this task", task);
     //buscamos el indice para saber cuan es la tarea que estamos modificando
     const index = tasks.indexOf(task);
     //guardamos todas las task en una variable temporal
@@ -52,7 +50,6 @@ const TaskList = () => {
     setTasks(tempTasks);
   }
   function removeTask(task) {
-    console.log("delete this task:", task);
     //averiguamos el index
     const index = tasks.indexOf(task);
     //variable temporal con las tasks
@@ -62,13 +59,54 @@ const TaskList = () => {
     setTasks(tempTasks);
   }
   function addTask(task) {
-    console.log("add task");
-    const index = tasks.indexOf(task);
     const tempTask = [...tasks];
     tempTask.push(task);
     setTasks(tempTask);
   }
+  const Table = () => {
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">title</th>
+            <th scope="col">description</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tasks.map((item, index) => {
+            return (
+              <TaskComponent
+                key={index}
+                task={item}
+                complete={completeTask}
+                remove={removeTask}
+              />
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  };
 
+  let tasksTable;
+
+  if (tasks.length > 0) {
+    tasksTable = (
+      <div>
+        <h3>{`You have ${tasks.length} tasks`} </h3>
+        <Table />
+      </div>
+    );
+  } else {
+    tasksTable = (
+      <div>
+        <h3>There are no tasks</h3>
+        <h4>Please, create your tasks</h4>
+      </div>
+    );
+  }
   return (
     <div className="col-12">
       {/*  ocupará12 columnas bootstrap, el ancho de la pantalla */}
@@ -82,29 +120,7 @@ const TaskList = () => {
           data-mdb-perfect-scrollbar="true"
           style={{ position: "relative", height: "400px" }}
         >
-          <table>
-            <thead>
-              {" "}
-              <tr>
-                <th scope="col">title</th>
-                <th scope="col">description</th>
-                <th scope="col">Priority</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tasks.map((item, index) => {
-                return (
-                  <TaskComponent
-                    key={index}
-                    task={item}
-                    complete={completeTask}
-                    remove={removeTask}
-                  />
-                );
-              })}
-            </tbody>
-          </table>
+          {tasksTable}
         </div>
         <TaskForm add={addTask}></TaskForm>
       </div>
